@@ -1,2 +1,2 @@
-# Fitness-Web-Application
-A web platform designed to provide personalized exercise routines, promoting accessibility and inclusivity. Features include a BMI calculator with tailored suggestions, text-to-speech guidance, shortcut keys, font adjustments, and disability-specific exercises. Built with HTML, CSS, JavaScript, Node.js, Express.js, and MongoDB.
+# Fitclub_25-07-23
+Discover the art of crafting a stunning Fitclub Gym Website Landing Page with this step-by-step tutorial.

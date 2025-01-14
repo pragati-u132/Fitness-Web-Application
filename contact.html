@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Fitness Website</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #1a202c, #2d3748);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+        }
+        .image {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .form-container {
+            flex: 1;
+            padding: 2rem;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFA500;
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            background: #2d3748;
+            border-radius: 0.25rem;
+            border: none;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            border: 2px solid #FFA500;
+        }
+        .error {
+            color: #FF6F61;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(to right, #FFA500, #FFB74D);
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(to right, #FFB74D, #FFCA80);
+            transform: scale(1.05);
+        }
+        .success {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #4CAF50;
+            color: white;
+            border-radius: 0.25rem;
+        }
+    </style>
+    <script src="script.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"  async defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="image"></div>
+        <div class="form-container">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                    <p class="error" id="nameError"></p>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    <p class="error" id="emailError"></p>
+                </div>
+                <div>
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" list="subjectSuggestions" required>
+                    <datalist id="subjectSuggestions">
+                        <option value="Membership Inquiry">
+                        <option value="Personal Training">
+                        <option value="Class Schedule">
+                        <option value="Equipment Query">
+                        <option value="Facility Feedback">
+                    </datalist>
+                    <p class="error" id="subjectError"></p>
+                </div>
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <p class="error" id="messageError"></p>
+                </div>
+                <!-- <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div> -->
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="success" id="successMessage">
+                <p>Thank you for your message! We'll get back to you soon.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    const fields = ['name', 'email', 'subject', 'message'];
+
+       form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let isValid = true;
+
+    fields.forEach(field => {
+        const input = document.getElementById(field);
+        
+        if (!input.validity.valid) {
+            showError(input, error);
+            isValid = false;
+        }
+    });
+
+    if (isValid) {
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value,
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                form.reset();
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error || 'An error occurred.');
+            }
+        } catch (error) {
+            alert('An error occurred while sending your message.');
+        }
+    }
+});
+        });
+    </script>
+</body>
+</html>
