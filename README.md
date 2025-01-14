@@ -9,7 +9,9 @@ Disability-Specific Routines: Offers safe, customized exercises for users with p
 Tech Stack:
 
 Frontend: HTML, CSS, JavaScript
+
 Backend: Node.js, Express.js
+
 Database: MongoDB
 
 ![Home](https://github.com/user-attachments/assets/550a9d90-23f7-4b63-8d6b-5ce3f8253897)
@@ -26,9 +28,9 @@ Database: MongoDB
 
 ![Specially abled 3](https://github.com/user-attachments/assets/cf79158a-6922-450c-b946-c777f5811211)
 
-![Contact](https://github.com/user-attachments/assets/846ce224-8349-4eac-b349-2209455f6fb9)
-
 ![Contact us](https://github.com/user-attachments/assets/3229ce1a-25e3-417b-9611-218b233ff6d0)
+
+![Contact](https://github.com/user-attachments/assets/846ce224-8349-4eac-b349-2209455f6fb9)
 
 
 
